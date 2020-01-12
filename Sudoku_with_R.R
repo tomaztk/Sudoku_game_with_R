@@ -47,8 +47,8 @@ sudoku <- matrix(data=c(
 
 
 find_empty <- function(su){
-  for (i in 1:nrow(bo)){
-    for (j in 1:ncol(bo)){
+  for (i in 1:nrow(su)){
+    for (j in 1:ncol(su)){
       if (su[i,j] == 0) {
         print(paste(i, j) )
       } 
