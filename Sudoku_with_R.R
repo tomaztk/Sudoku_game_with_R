@@ -91,23 +91,23 @@ solver <- function(board_su){
     if (nrow(find) == 0) {
       state <- TRUE
     } else {
-      row <- find[2]
-      col <- find[1]
+      row <- as.integer(find[2])
+      col <- as.integer(find[1])
     }
     
     for (i in 1:9){ # numbers from 1... 9
       if (validater(board_su, i, c(row, col)) == FALSE){
-        board_su[i,j] <- i
+        board_su[row,col] <- i
         
         if (solve(board_su) == TRUE) {
           state <- TRUE
         } else {
-          board_su[i,j] <- 0
+          board_su[row,col] <- 0
         }
       }
       #state <- TRUE
     }
-    state <- TRUE
+    state <- FALSE
   }
 }
 
