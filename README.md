@@ -9,6 +9,10 @@ R code consists of couple helper functions and matrix for the sudoku to be solve
 
 ![Sudoku in output](./img/grid.jpg)
 
+And with solution as a sudoku solver.
+
+![Sudoku solver output](./img/solution.png)
+
 
 ## Cloning the repository
 You can follow the steps below to clone the repository. 
