@@ -4,10 +4,11 @@
 ####
 ####  Created by Tomaz Kastrun
 ####  Date: January, 11, 2020
-####  Version: 0.0.1
+####  Version: 0.0.2
 ####
 
 
+####   Minor bug fixes
 ####  ToDo: Write checker decomposition of [x,y] into number for function Valid
 ####  ToDo: Checker for while loop and FALSE TRUE values
 
@@ -62,21 +63,20 @@ find_empty <- function(su){
 }
 
 
-
 solver <- function(board_su){
   state <- FALSE
   while (state == FALSE) {
   find <- find_empty(board_su)
-    print(find)
-    if (length(find) == 0) {
-      state <- TRUE
-    } else {
-      row <- find[2]
-      col <- find[1]
-    }
-  }
- for (i in 1:10){ # numbers from 1... 9
-  if (validater(board_su, i (row, col)) == TRUE){
+      print(find)
+      if (nrow(find) == 0) {
+        state <- TRUE
+      } else {
+        row <- find[2]
+        col <- find[1]
+      }
+  
+ for (i in 1:9){ # numbers from 1... 9
+  if (validater(board_su, i, c(row, col)) == FALSE){
     board_su[i,j] <- i
     
     if (solve(board_su) == FALSE) {
@@ -84,29 +84,29 @@ solver <- function(board_su){
     } else {
       board_su[i,j] <- 0
     }
-
-  state <- FALSE
   }
+   state <- TRUE
  }
+}
 }
 
 
-solver(sudoku)
-find <- find_empty(sudoku)
+# find_empty(sudoku)
+# solver(sudoku)
 
 validater <- function(board_su, num, pos){
-  #while status <> FALSE
-  status <- FALSE
   
+  status <- FALSE
+  while (status == FALSE) {
   for (i in 1:length(board_su[,1])){
-    if (board_su(pos[i,1]) == num & pos[1,] != i) {
+    if (board_su[i,1] == num & pos[1,] != i) {
       status <- FALSE
       return(status)
     }
   }
-#}
+
   for (i in 1:length(board_su[1,])){
-    if (board_su(pos[1,i]) == num & pos[,1] != i) {
+    if (board_su[1,i] == num & pos[,1] != i) {
       status <- FALSE
       return(status)
     }
@@ -122,6 +122,7 @@ validater <- function(board_su, num, pos){
       return(status)
       }
     }
+   } 
   }
   status <- TRUE
   return(status)
@@ -129,23 +130,7 @@ validater <- function(board_su, num, pos){
 }
 
 
-print_solution <- function(board_su){
-  for (i in 1:length(board_su)){
-    if (i %% 3 == 0 & i != 0)  {
-      print("- - - - - - - - - - - - - ") }
-    for (j in 1:length(board_su[1,])) { 
-      
-      if (j %% 3 == 0 & j != 0) {
-        print(" | ") }
-      
-      if (j == 8) {
-        print(board_su[i,j]) 
-      } else {
-        print(paste(board_su[i,j]), " ")
-      }
-    }
-  }
-}
+# validater(sudoku, 1, 1)
 
 
 
@@ -153,10 +138,8 @@ print_solution <- function(board_su){
 ### Start new Game
 #####################
 
-
-
 cat("Stepping into ....")
 cat("Solution ________ ")
 
 solver(sudoku)
-print_solution(sudoku)
+sudoku
