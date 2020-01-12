@@ -8,7 +8,7 @@
 ####
 
 
-####   Minor bug fixes
+####   Minor changes 
 ####  ToDo: Write checker decomposition of [x,y] into number for function Valid
 ####  ToDo: Checker for while loop and FALSE TRUE values
 
@@ -91,29 +91,26 @@ solver <- function(board_su){
 }
 
 
-# find_empty(sudoku)
-# solver(sudoku)
-
 validater <- function(board_su, num, pos){
   
   status <- FALSE
   while (status == FALSE) {
   for (i in 1:length(board_su[,1])){
-    if (board_su[i,1] == num & pos[1,] != i) {
+    if (board_su[i,1] == num & board_su[1,] != i) {
       status <- FALSE
       return(status)
     }
   }
 
   for (i in 1:length(board_su[1,])){
-    if (board_su[1,i] == num & pos[,1] != i) {
+    if (board_su[1,i] == num & board_su[,1] != i) {
       status <- FALSE
       return(status)
     }
   }
 
-  box_x <- as.integer(pos[2]/3)
-  box_y <- as.integer(pos[1]/3)
+  box_x <- as.integer(board_su[2]/3)
+  box_y <- as.integer(board_su[1]/3)
   
   for (i in box_y*3:(box_y*3 + 3)) {
     for (j in  box_x * 3 : (box_x*3 + 3)) {
@@ -126,12 +123,7 @@ validater <- function(board_su, num, pos){
   }
   status <- TRUE
   return(status)
-  
 }
-
-
-# validater(sudoku, 1, 1)
-
 
 
 #####################
