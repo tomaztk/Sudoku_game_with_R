@@ -47,17 +47,20 @@ sudoku <- matrix(data=c(
 
 
 find_empty <- function(su){
-  for (i in 1:nrow(su)){
+  #empty df
+  df <- data.frame(i=NULL,j=NULL)
+    for (i in 1:nrow(su)){
     for (j in 1:ncol(su)){
       if (su[i,j] == 0) {
-        print(paste(i, j) )
-      } 
+        a <- data.frame(i,j)
+        names(a) <- c("i", "j")
+        df <- rbind(df, a)
+       } 
+     }
     }
-  }
+  return(df)
 }
 
-
-# find_empty(sudoku)
 
 
 solver <- function(board_su){
@@ -87,6 +90,9 @@ solver <- function(board_su){
  }
 }
 
+
+solver(sudoku)
+find <- find_empty(sudoku)
 
 validater <- function(board_su, num, pos){
   #while status <> FALSE
