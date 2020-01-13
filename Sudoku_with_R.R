@@ -116,12 +116,12 @@ validater <- function(board_su, num, pos=c(NULL,NULL)){
     }
     
     #which box are we in
-    box_x <- as.integer(ifelse(as.integer(b/3)==0, 1, as.integer(b/3)))
-    box_y <- as.integer(ifelse(as.integer(a/3)==0, 1, as.integer(a/3)))
+    boxNx <- as.integer(ifelse(as.integer(b/3)==0, 1, as.integer(b/3)))
+    boxNy <- as.integer(ifelse(as.integer(a/3)==0, 1, as.integer(a/3)))
     
     #looping through the box
-    for (i in box_y*3:(box_y*3 + 3)) {
-      for (j in  box_x * 3 : (box_x*3 + 3)) {
+    for (i in boxNy*3:(boxNy*3 + 3)) {
+      for (j in  boxNx * 3 : (boxNx*3 + 3)) {
         if ((board_su[i, j] == num &  i != a & j != b) == TRUE){
           status <- FALSE
           return(status)
@@ -129,8 +129,9 @@ validater <- function(board_su, num, pos=c(NULL,NULL)){
       }
     } 
     status <- TRUE
+    return(status)
   }
-  return(status)
+ # return(status)
 }
 
 
