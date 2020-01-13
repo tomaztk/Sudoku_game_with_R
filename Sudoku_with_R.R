@@ -47,46 +47,29 @@ sudoku <- matrix(data=c(
 #######################
 
 
-find_empty_v2 <- function(su){
+
+get_zeros <- function(board_su){
   #empty df
   df <- data.frame(i=NULL,j=NULL)
-    for (i in 1:nrow(su)){
-    for (j in 1:ncol(su)){
-      if (su[i,j] == 0) {
-        a <- data.frame(i,j)
-        names(a) <- c("i", "j")
-        df <- rbind(df, a)
-       } 
-     }
-    }
-  return(df)
-}
-
-
-find_empty <- function(su){
-  #empty df
-  df <- data.frame(i=NULL,j=NULL)
-  for (i in 1:nrow(su)){
-    for (j in 1:ncol(su)){
-      if (su[i,j] == 0) {
+  for (i in 1:nrow(board_su)){
+    for (j in 1:ncol(board_su)){
+      if (board_su[i,j] == 0) {
         a <- data.frame(i,j)
         #names(a) <- c("i", "j")
         #df <- rbind(df, a)
         df <- a
+        return(df)
       } 
     }
-    return(df)
   }
-break()
 }
-
 
 
 
 solver <- function(board_su){
   state <- FALSE
   while (state == FALSE) {
-    find <- find_empty(board_su)
+    find <- get_zeros(board_su)
     print(find)
     if (nrow(find) == 0) {
       state <- TRUE
@@ -95,44 +78,41 @@ solver <- function(board_su){
       col <- as.integer(find[1])
     }
     
-    for (i in 1:9){ # numbers from 1... 9
+    for (i in 1:9){ 
       if (validater(board_su, i, c(row, col)) == FALSE){
         board_su[row,col] <- i
-        
-        if (solve(board_su) == TRUE) {
-          state <- TRUE
+         if (solver(board_su) == TRUE) {
+             state <- TRUE
         } else {
           board_su[row,col] <- 0
+          state <- FALSE
         }
       }
-      #state <- TRUE
     }
-    state <- FALSE
   }
+  state <- TRUE
+  return(state)
 }
 
 
-validater <- function(board_su, num, pos){
+validater <- function(board_su, num, pos=c(NULL,NULL)){
   status <- FALSE
   a <- as.integer(pos[1])
   b <- as.integer(pos[2])
   num <- as.integer(num)
   while (status == FALSE) {
-    for (i in 1:9) {    #length(board_su[,1])){ # len is 9
+    for (i in 1:9) {    
       if ((board_su[a,i] == num & b != i) == TRUE) {
         status <- FALSE
         return(status)
       }
-      #break
-      #status <- TRUE
     }
     
-    for (i in 1:9) {    #length(board_su[1,])){
+    for (i in 1:9) {    
       if ((board_su[i,b] == num & a != i) == TRUE) {
         status <- FALSE
         return(status)
       }
-      #status <- TRUE
     }
     
     #which box are we in
@@ -144,12 +124,12 @@ validater <- function(board_su, num, pos){
       for (j in  box_x * 3 : (box_x*3 + 3)) {
         if ((board_su[i, j] == num &  i != a & j != b) == TRUE){
           status <- FALSE
-          #return(status)
+          return(status)
         }
       }
     } 
+    status <- TRUE
   }
-  status <- TRUE
   return(status)
 }
 
